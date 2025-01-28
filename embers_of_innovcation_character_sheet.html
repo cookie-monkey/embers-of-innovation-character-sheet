@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Embers of Innovation - Character Sheet</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            display: block;
+            width: 1200px;
+            margin: 0 auto;
+            font-family: "Montserrat", sans-serif;
+            font-size: 16px;
+            line-height: normal;
+        }
+
+        h1, h2, h3, h4 {
+            display: block;
+            padding: 0;
+            margin: 0;
+            font-size: 1em;
+            font-weight: 700;
+        }
+
+        input {
+            display: block;
+            flex: 1 1 auto;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            border: none;
+            border-bottom: 2px solid black;
+            line-height: 1;
+            font-family: inherit;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        input:hover, input:focus {
+            outline: none;
+        }
+
+        textarea {
+            display: block;
+            width: 100%;
+            padding: 6px;
+            border: 1px solid black;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        textarea:hover, textarea:focus {
+            outline: none;
+        }
+
+        button {
+            display: block;
+            cursor: pointer;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 100%;
+            margin: 0;
+        }
+
+        .row + .row {
+            margin-top: 25px;
+        }
+
+        .column {
+            display: block;
+            flex: 1 1 100%;
+            margin: 0;
+        }
+
+        .column + .column {
+            margin-left: 25px;
+        }
+
+        .subsection {
+            display: block;
+            margin: 0;
+        }
+        
+        .subsection + .subsection {
+            margin-top: 20px;
+        }
+
+        .title {
+            display: block;
+            padding: 20px 0;
+            margin: 0;
+            font-size: 4rem;
+            font-weight: 900;
+        }
+
+        .title > sub {
+            vertical-align: baseline;
+            font-size: 0.5em;
+            font-weight: 400;
+        }
+
+        .heading {
+            display: block;
+            padding: 5px 10px;
+            margin: 0 0 20px 0;
+            background: black;
+            color: white;
+            font-size: 1.5em;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .subheading {
+            margin: 0 0 15px 0;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .aspect {
+            display: block;
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .aspect + .aspect {
+            margin-top: 20px;
+        }
+
+        .aspect > label {
+            display: block;
+            margin: 0 0 8px 0;
+        }
+
+        .stress-track {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 5px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .stress-track > .label {
+            display: block;
+            flex: 0 0 auto;
+            width: 100px;
+        }
+
+        .stress-track > .circle-button:first-of-type {
+            margin-left: 10px;
+        }
+
+        .stress-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            margin: 4px;
+            border: 2px solid black;
+            border-radius: 0;
+            font-size: 1.125rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            appearance: none;
+        }
+
+        .consequence {
+            display: flex;
+            margin: 10px 0;
+            flex-direction: row;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .consequence > label {
+            display: block;
+            flex: 0 0 auto;
+            width: 120px;
+            margin: 0 0 0 6px;
+        }
+
+        .consequence > input {
+            flex: 1 1 auto;
+            width: 100%;
+        }
+
+        .consequence > .circle-button {
+            margin-left: 20px;
+        }
+
+        .skill {
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            margin: 0;
+            font-size: 1.25em;
+        }
+
+        .skill + .skill {
+            margin-top: 8px;
+        }
+
+        .skill > input {
+            flex: 0 0 auto;
+            width: 40px;
+            margin: 0 10px 0 5px;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        .circle-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            margin: 4px;
+            border: none;
+            border-radius: 50%;
+            background: black;
+            color: white;
+            line-height: 1;
+            font-weight: 900;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .stunts-editor {
+            display: block;
+            height: 300px;
+        }
+
+        @media print {    
+            .circle-button {
+                display: none !important;
+            }
+
+            .ql-toolbar {
+                display: none !important;
+            }
+
+            .ql-container {
+                border: none !important;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1 class="title">Embers of Innovation <sub>Character Sheet</sub></h1>
+
+    <form id="character-form" onchange="saveCharacter()">
+        <div class="row">
+            <div class="column">
+                <section>
+                    <h2 class="heading">Aspects</h2>
+                    <div class="aspect"><label>High Concept</label><input type="text"></div>
+                    <div class="aspect"><label>Trouble</label><input type="text"></div>
+                    <div class="aspect"><label>Archmage Persona</label><input type="text"></div>
+                    <div class="aspect"><label>Relationship</label><input type="text"></div>
+                    <div class="aspect"><label>Aspect</label><input type="text"></div>
+                    <div class="aspect"><label>Aspect</label><input type="text"></div>
+                </section>
+            </div>
+            <div class="column">
+                <section>
+                    <h2 class="heading">Vitals</h2>
+                    <div class="subsection">
+                        <h3 class="subheading">Stress</h3>
+                        <div id="physical-stress" class="stress-track">
+                            <h4 class="label">Physical</h4>
+                            <div class="stress-box">1</div>
+                            <div class="stress-box">1</div>
+                            <div class="stress-box">1</div>
+                            <button id="remove-physical-stress" type="button" class="circle-button" onclick="removePhysicalStress()">−</button>
+                            <button id="add-physical-stress" type="button" class="circle-button" onclick="addPhysicalStress()">+</button>
+                        </div>
+                        <div id="mental-stress" class="stress-track">
+                            <h4 class="label">Mental</h4>
+                            <div class="stress-box">1</div>
+                            <div class="stress-box">1</div>
+                            <div class="stress-box">1</div>
+                            <button id="remove-mental-stress" type="button" class="circle-button" onclick="removeMentalStress()">−</button>
+                            <button id="add-mental-stress" type="button" class="circle-button" onclick="addMentalStress()">+</button>
+                        </div>
+                    </div>
+                    <div id="consequences" class="subsection">
+                        <h3 class="subheading">Consequences</h3>
+                        <div id="mild-consequence" class="consequence">
+                            <div class="stress-box">2</div>
+                            <label>Mild</label>
+                            <input type="text">
+                            <button type="button" class="circle-button" onclick="addConsequence(document.getElementById('mild-consequence'))">+</button>
+                        </div>
+                        <div id="moderate-consequence" class="consequence">
+                            <div class="stress-box">4</div>
+                            <label>Moderate</label>
+                            <input type="text">
+                            <button type="button" class="circle-button" onclick="addConsequence(document.getElementById('moderate-consequence'))">+</button>
+                        </div>
+                        <div id="severe-consequence" class="consequence">
+                            <div class="stress-box">6</div>
+                            <label>Severe</label>
+                            <input type="text">
+                            <button type="button" class="circle-button" onclick="addConsequence(document.getElementById('severe-consequence'))">+</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <section>
+                    <h2 class="heading">Skills</h2>
+                    <div class="skill">+<input type="text"><label>Artificery</label></div>
+                    <div class="skill">+<input type="text"><label>Athletics</label></div>
+                    <div class="skill">+<input type="text"><label>Combat</label></div>
+                    <div class="skill">+<input type="text"><label>Contacts</label></div>
+                    <div class="skill">+<input type="text"><label>Deceive</label></div>
+                    <div class="skill">+<input type="text"><label>Empathy</label></div>
+                    <div class="skill">+<input type="text"><label>Lore</label></div>
+                    <div class="skill">+<input type="text"><label>Perception</label></div>
+                    <div class="skill">+<input type="text"><label>Provoke</label></div>
+                    <div class="skill">+<input type="text"><label>Rapport</label></div>
+                    <div class="skill">+<input type="text"><label>Subterfuge</label></div>
+                    <div class="skill">+<input type="text"><label>Will</label></div>
+                </section>
+            </div>
+            <div class="column">
+                <section>
+                    <h2 class="heading">Spheres</h2>
+                    <div class="skill">+<input type="text"><label>Prime</label></div>
+                    <div class="skill">+<input type="text"><label>Mind</label></div>
+                    <div class="skill">+<input type="text"><label>Spirit</label></div>
+                    <div class="skill">+<input type="text"><label>Matter</label></div>
+                    <div class="skill">+<input type="text"><label>Forces</label></div>
+                    <div class="skill">+<input type="text"><label>Life</label></div>
+                    <div class="skill">+<input type="text"><label>Time</label></div>
+                    <div class="skill">+<input type="text"><label>Correspondence</label></div>
+                    <div class="skill">+<input type="text"><label>Entropy</label></div>
+                </section>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <section>
+                    <h2 class="heading">Stunts</h2>
+                    <div id="stunts-editor" class="stunts-editor"></div>
+                </section>
+            </div>
+        </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+    <script>
+        const quill = new Quill('#stunts-editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [['bold', 'italic', 'underline']],
+            },
+        });
+
+        function addPhysicalStress() {
+            const stressBoxes = Array.from(document.querySelectorAll('#physical-stress .stress-box'));
+            const lastStressBox = stressBoxes.at(-1);
+
+            lastStressBox.after(lastStressBox.cloneNode(true));
+        }
+
+        function removePhysicalStress() {
+            const stressBoxes = Array.from(document.querySelectorAll('#physical-stress .stress-box'));
+            const lastStressBox = stressBoxes.at(-1);
+
+            if (stressBoxes.length > 1) {
+                lastStressBox.remove();
+            }
+        }
+
+        function addMentalStress() {
+            const stressBoxes = Array.from(document.querySelectorAll('#mental-stress .stress-box'));
+            const lastStressBox = stressBoxes.at(-1);
+
+            lastStressBox.after(lastStressBox.cloneNode(true));
+        };
+
+        function removeMentalStress() {
+            const stressBoxes = Array.from(document.querySelectorAll('#mental-stress .stress-box'));
+            const lastStressBox = stressBoxes.at(-1);
+
+            if (stressBoxes.length > 1) {
+                lastStressBox.remove();
+            }
+        }
+    
+        function addConsequence(consequence) {
+            const newConsequence = consequence.cloneNode(true);
+
+            const button = newConsequence.querySelector('button');
+
+            button.textContent = '−';
+            button.onclick = () => newConsequence.remove()
+
+            document.getElementById('consequences').append(newConsequence);
+        }
+    
+        function saveCharacter() {
+            const form = document.getElementById('character');
+            const formData = new FormData(form);
+            const jsonData = Object.fromEntries(formData.entries());
+
+            localStorage.setItem('data', jsonData);
+        }
+    
+        function loadCharacter() {
+            const form = document.getElementById('character');
+            const jsonData = localStorage.getItem('data');
+            const formData = new FormData();
+
+            for (const [key, value] of Object.entries(jsonData)) {
+                formData.set(key, value);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
