@@ -138,7 +138,7 @@
 
         .aspect {
             display: block;
-            margin: 20px 0 0 0;
+            margin: 25px 0 0 0;
             font-size: 1rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -146,7 +146,7 @@
 
         .aspect > .label {
             display: block;
-            margin: 0 0 8px 0;
+            margin: 0 0 15px 0;
             text-transform: uppercase;
         }
 
@@ -320,7 +320,7 @@
                         <h2 class="heading">Aspects</h2>
                         <div class="aspect" v-for="aspect in character.aspects">
                             <span class="label">{{aspect.label}}</span>
-                            <input type="text" v-model="aspect.description">
+                            <input type="text" class="text-field" v-model="aspect.description">
                         </div>
                     </section>
                 </div>
