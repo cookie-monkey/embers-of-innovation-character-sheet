@@ -89,7 +89,9 @@
 
         .column {
             display: block;
-            flex: 1 1 100%;
+            flex: 1 1 auto;
+            width: 100%;
+            padding: 0;
             margin: 0;
         }
 
@@ -122,6 +124,7 @@
 
         .heading {
             display: block;
+            width: 100%;
             padding: 5px 10px;
             margin: 0 0 25px 0;
             background: black;
@@ -132,6 +135,8 @@
         }
 
         .subheading {
+            display: block;
+            padding: 0;
             margin: 25px 0;
             font-weight: 900;
             text-transform: uppercase;
@@ -279,6 +284,33 @@
             text-align: center;
         }
 
+        .refresh {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+        }
+
+        .refresh > .heading {
+            flex: 1 1 auto;
+            margin: 0;
+        }
+
+        .refresh > .text-field {
+            position: absolute;
+            left: 160px;
+            display: block;
+            flex: 0 0 auto;
+            width: 90px;
+            height: 90px;
+            border: 4px solid black;
+            border-radius: 50%;
+            font-size: 2.75rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
         .circle-button {
             display: flex;
             align-items: center;
@@ -302,6 +334,16 @@
             button {
                 display: none !important;
             }
+
+            textarea {
+                padding: 0;
+                border: none;
+            }
+
+            .page-break {
+                clear: both;
+                page-break-before: always;
+            }
         }
     </style>
 
@@ -310,11 +352,8 @@
 <body>
 
     <div id="app">
-
         <h1 class="title">Embers of Innovation <sub>Character Sheet</sub></h1>
-
-        <form id="app">
-
+        <form>
             <div class="row">
                 <div class="column">
                     <section>
@@ -357,7 +396,6 @@
                     </section>
                 </div>
             </div>
-
             <div class="row">
                 <div class="column">
                     <section>
@@ -380,8 +418,7 @@
                     </section>
                 </div>
             </div>
-
-            <div class="row">
+            <div class="row page-break">
                 <div class="column">
                     <section>
                         <h2 class="heading">Stunts</h2>
@@ -389,9 +426,15 @@
                     </section>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="column">
+                    <div class="refresh">
+                        <h2 class="heading">Refresh</h2>
+                        <input type="text" class="text-field" v-model="character.refresh">
+                    </div>
+                </div>
+            </div>
         </form>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
@@ -517,6 +560,7 @@
                     [Stress.PARADOX]: createStressTrack(3),
                 },
                 stunts: '',
+                refresh: 3,
             };
         }
 
@@ -573,10 +617,11 @@
 
         createApp({
             data() {
-                const character = loadCharacter() ?? createCharacter();
-
                 return {
-                    character,
+                    character: {
+                        ...createCharacter(),
+                        ...loadCharacter(),
+                    },
                 };
             },
             methods: {
