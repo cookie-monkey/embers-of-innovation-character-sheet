@@ -4,13 +4,14 @@
 
 <head>
 
-    <title>Embers of Innovation - Character Sheet</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Embers of Innovation: Character Sheet</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 
     <style>
         * {
@@ -20,6 +21,7 @@
         body {
             display: block;
             width: 1200px;
+            padding: 50px 0;
             margin: 0 auto;
             font-family: "Montserrat", sans-serif;
             font-size: 16px;
@@ -57,7 +59,7 @@
             width: 100%;
             padding: 6px;
             border: 1px solid black;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: 400;
         }
 
@@ -81,7 +83,7 @@
         }
 
         .row + .row {
-            margin-top: 25px;
+            margin-top: 40px;
         }
 
         .column {
@@ -105,8 +107,8 @@
 
         .title {
             display: block;
-            padding: 20px 0;
-            margin: 0;
+            padding: 0;
+            margin: 0 0 30px 0;
             font-size: 4rem;
             font-weight: 900;
         }
@@ -120,7 +122,7 @@
         .heading {
             display: block;
             padding: 5px 10px;
-            margin: 0 0 20px 0;
+            margin: 0 0 25px 0;
             background: black;
             color: white;
             font-size: 1.5em;
@@ -129,45 +131,23 @@
         }
 
         .subheading {
-            margin: 0 0 15px 0;
+            margin: 25px 0;
             font-weight: 900;
             text-transform: uppercase;
         }
 
         .aspect {
             display: block;
-            margin: 0;
+            margin: 20px 0 0 0;
             font-size: 1rem;
             font-weight: 700;
             text-transform: uppercase;
         }
 
-        .aspect + .aspect {
-            margin-top: 20px;
-        }
-
-        .aspect > label {
+        .aspect > .label {
             display: block;
             margin: 0 0 8px 0;
-        }
-
-        .stress-track {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            margin: 5px 0;
-            font-weight: 700;
             text-transform: uppercase;
-        }
-
-        .stress-track > .label {
-            display: block;
-            flex: 0 0 auto;
-            width: 100px;
-        }
-
-        .stress-track > .circle-button:first-of-type {
-            margin-left: 10px;
         }
 
         .stress-box {
@@ -175,10 +155,11 @@
             align-items: center;
             justify-content: center;
             flex: 0 0 auto;
+            position: relative;
             width: 32px;
             height: 32px;
             padding: 0;
-            margin: 4px;
+            margin: 0;
             border: 2px solid black;
             border-radius: 0;
             font-size: 1.125rem;
@@ -187,30 +168,93 @@
             appearance: none;
         }
 
-        .consequence {
+        .stress-box > input {
             display: flex;
-            margin: 10px 0;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            border: none;
+            background: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .stress-box > input:checked:after {
+            content: '';
+            display: block;
+            flex: 0 0 auto;
+            width: 120%;
+            height: 3px;
+            border-radius: 10px;
+            background: black;
+            rotate: -45deg;
+            opacity: 0.75;
+        }
+
+        .stress-track {
+            display: flex;
             flex-direction: row;
             align-items: center;
-            font-size: 1rem;
-            font-weight: bold;
+            height: 32px;
+            margin: 15px 0 0 0;
+            font-weight: 700;
+        }
+
+        .stress-track > .label {
+            display: block;
+            flex: 0 0 auto;
+            width: 100px;
             text-transform: uppercase;
         }
 
-        .consequence > label {
-            display: block;
-            flex: 0 0 auto;
-            width: 120px;
+        .stress-track > .stress-boxes {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+            flex: 1 1 auto;
+            width: 100%;
+        }
+
+        .stress-track > .stress-boxes > .stress-box {
+            margin: 0 0 0 5px;
+        }
+
+        .stress-track > .circle-button {
             margin: 0 0 0 6px;
         }
 
-        .consequence > input {
+        .consequence {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 15px 0 0 0;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .consequence > .label {
+            display: block;
+            flex: 0 0 auto;
+            width: 120px;
+            margin: 0 0 0 10px;
+            text-transform: uppercase;
+        }
+
+        .consequence > .text-field {
+            display: block;
             flex: 1 1 auto;
             width: 100%;
         }
 
         .consequence > .circle-button {
-            margin-left: 20px;
+            margin: 0 0 0 15px;
         }
 
         .skill {
@@ -218,15 +262,15 @@
             flex-direction: row;
             justify-content: start;
             align-items: center;
-            margin: 0;
-            font-size: 1.25em;
+            margin: 10px 0 0 0;
+            font-size: 1.25rem;
         }
 
-        .skill + .skill {
-            margin-top: 8px;
+        .skill > .label {
+            text-transform: capitalize;
         }
 
-        .skill > input {
+        .skill > .text-field {
             flex: 0 0 auto;
             width: 40px;
             margin: 0 10px 0 5px;
@@ -238,35 +282,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex: 0 0 auto;
             width: 22px;
             height: 22px;
-            margin: 4px;
+            padding: 0;
+            margin: 0;
             border: none;
             border-radius: 50%;
             background: black;
             color: white;
-            line-height: 1;
+            line-height: 1em;
             font-weight: 900;
             font-size: 18px;
             text-align: center;
         }
 
-        .stunts-editor {
-            display: block;
-            height: 300px;
-        }
-
         @media print {    
-            .circle-button {
+            button {
                 display: none !important;
-            }
-
-            .ql-toolbar {
-                display: none !important;
-            }
-
-            .ql-container {
-                border: none !important;
             }
         }
     </style>
@@ -275,182 +308,299 @@
 
 <body>
 
-    <h1 class="title">Embers of Innovation <sub>Character Sheet</sub></h1>
+    <div id="app">
 
-    <form id="character-form" onchange="saveCharacter()">
-        <div class="row">
-            <div class="column">
-                <section>
-                    <h2 class="heading">Aspects</h2>
-                    <div class="aspect"><label>High Concept</label><input type="text"></div>
-                    <div class="aspect"><label>Trouble</label><input type="text"></div>
-                    <div class="aspect"><label>Archmage Persona</label><input type="text"></div>
-                    <div class="aspect"><label>Relationship</label><input type="text"></div>
-                    <div class="aspect"><label>Aspect</label><input type="text"></div>
-                    <div class="aspect"><label>Aspect</label><input type="text"></div>
-                </section>
-            </div>
-            <div class="column">
-                <section>
-                    <h2 class="heading">Vitals</h2>
-                    <div class="subsection">
-                        <h3 class="subheading">Stress</h3>
-                        <div id="physical-stress" class="stress-track">
-                            <h4 class="label">Physical</h4>
-                            <div class="stress-box">1</div>
-                            <div class="stress-box">1</div>
-                            <div class="stress-box">1</div>
-                            <button id="remove-physical-stress" type="button" class="circle-button" onclick="removePhysicalStress()">−</button>
-                            <button id="add-physical-stress" type="button" class="circle-button" onclick="addPhysicalStress()">+</button>
-                        </div>
-                        <div id="mental-stress" class="stress-track">
-                            <h4 class="label">Mental</h4>
-                            <div class="stress-box">1</div>
-                            <div class="stress-box">1</div>
-                            <div class="stress-box">1</div>
-                            <button id="remove-mental-stress" type="button" class="circle-button" onclick="removeMentalStress()">−</button>
-                            <button id="add-mental-stress" type="button" class="circle-button" onclick="addMentalStress()">+</button>
-                        </div>
-                    </div>
-                    <div id="consequences" class="subsection">
-                        <h3 class="subheading">Consequences</h3>
-                        <div id="mild-consequence" class="consequence">
-                            <div class="stress-box">2</div>
-                            <label>Mild</label>
-                            <input type="text">
-                            <button type="button" class="circle-button" onclick="addConsequence(document.getElementById('mild-consequence'))">+</button>
-                        </div>
-                        <div id="moderate-consequence" class="consequence">
-                            <div class="stress-box">4</div>
-                            <label>Moderate</label>
-                            <input type="text">
-                            <button type="button" class="circle-button" onclick="addConsequence(document.getElementById('moderate-consequence'))">+</button>
-                        </div>
-                        <div id="severe-consequence" class="consequence">
-                            <div class="stress-box">6</div>
-                            <label>Severe</label>
-                            <input type="text">
-                            <button type="button" class="circle-button" onclick="addConsequence(document.getElementById('severe-consequence'))">+</button>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
+        <h1 class="title">Embers of Innovation <sub>Character Sheet</sub></h1>
 
-        <div class="row">
-            <div class="column">
-                <section>
-                    <h2 class="heading">Skills</h2>
-                    <div class="skill">+<input type="text"><label>Artificery</label></div>
-                    <div class="skill">+<input type="text"><label>Athletics</label></div>
-                    <div class="skill">+<input type="text"><label>Combat</label></div>
-                    <div class="skill">+<input type="text"><label>Contacts</label></div>
-                    <div class="skill">+<input type="text"><label>Deceive</label></div>
-                    <div class="skill">+<input type="text"><label>Empathy</label></div>
-                    <div class="skill">+<input type="text"><label>Lore</label></div>
-                    <div class="skill">+<input type="text"><label>Perception</label></div>
-                    <div class="skill">+<input type="text"><label>Provoke</label></div>
-                    <div class="skill">+<input type="text"><label>Rapport</label></div>
-                    <div class="skill">+<input type="text"><label>Subterfuge</label></div>
-                    <div class="skill">+<input type="text"><label>Will</label></div>
-                </section>
-            </div>
-            <div class="column">
-                <section>
-                    <h2 class="heading">Spheres</h2>
-                    <div class="skill">+<input type="text"><label>Prime</label></div>
-                    <div class="skill">+<input type="text"><label>Mind</label></div>
-                    <div class="skill">+<input type="text"><label>Spirit</label></div>
-                    <div class="skill">+<input type="text"><label>Matter</label></div>
-                    <div class="skill">+<input type="text"><label>Forces</label></div>
-                    <div class="skill">+<input type="text"><label>Life</label></div>
-                    <div class="skill">+<input type="text"><label>Time</label></div>
-                    <div class="skill">+<input type="text"><label>Correspondence</label></div>
-                    <div class="skill">+<input type="text"><label>Entropy</label></div>
-                </section>
-            </div>
-        </div>
+        <form id="app">
 
-        <div class="row">
-            <div class="column">
-                <section>
-                    <h2 class="heading">Stunts</h2>
-                    <div id="stunts-editor" class="stunts-editor"></div>
-                </section>
+            <div class="row">
+                <div class="column">
+                    <section>
+                        <h2 class="heading">Aspects</h2>
+                        <div class="aspect" v-for="aspect in character.aspects">
+                            <span class="label">{{aspect.label}}</span>
+                            <input type="text" v-model="aspect.description">
+                        </div>
+                    </section>
+                </div>
+                <div class="column">
+                    <section>
+                        <h2 class="heading">Vitals</h2>
+                        <div class="subsection">
+                            <h3 class="subheading">Stress</h3>
+                            <div class="stress-track" v-for="(stressTrack, stressType) in character.stress">
+                                <h4 class="label">{{stressType}}</h4>
+                                <div class="stress-boxes">
+                                    <div class="stress-box" v-for="stressBox in stressTrack">
+                                        <span>1</span>
+                                        <input type="checkbox" v-model="stressBox.checked">
+                                    </div>
+                                </div>
+                                <button type="button" class="circle-button" @click="removeStressBox(stressType)">−</button>
+                                <button type="button" class="circle-button" @click="addStressBox(stressType)">+</button>
+                            </div>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subheading">Consequences</h3>
+                            <div v-for="(consequence, index) in character.consequences">
+                                <div class="consequence">
+                                    <div class="stress-box">{{consequence.stressValue}}</div>
+                                    <span class="label">{{consequence.type}}</span>
+                                    <input type="text" class="text-field" v-model="consequence.description">
+                                    <button type="button" class="circle-button" v-if="!consequence.isFixed" @click="removeConsequence(consequence)">−</button>
+                                    <button type="button" class="circle-button" v-if="consequence.isFixed" @click="addConsequence(consequence.type)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
-        </div>
-    </form>
+
+            <div class="row">
+                <div class="column">
+                    <section>
+                        <h2 class="heading">Skills</h2>
+                        <div class="skill" v-for="skill in character.skills">
+                            <span>+</span>
+                            <input type="text" class="text-field" v-model="skill.value">
+                            <span class="label">{{skill.label}}</span>
+                        </div>
+                    </section>
+                </div>
+                <div class="column">
+                    <section>
+                        <h2 class="heading">Spheres</h2>
+                        <div class="skill" v-for="sphere in character.spheres">
+                            <span>+</span>
+                            <input type="text" class="text-field" v-model="sphere.value">
+                            <span class="label">{{sphere.label}}</span>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <section>
+                        <h2 class="heading">Stunts</h2>
+                        <textarea v-model="character.stunts" rows="10"></textarea>
+                    </section>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
     <script>
-        const quill = new Quill('#stunts-editor', {
-            theme: 'snow',
-            modules: {
-                toolbar: [['bold', 'italic', 'underline']],
-            },
-        });
-
-        function addPhysicalStress() {
-            const stressBoxes = Array.from(document.querySelectorAll('#physical-stress .stress-box'));
-            const lastStressBox = stressBoxes.at(-1);
-
-            lastStressBox.after(lastStressBox.cloneNode(true));
-        }
-
-        function removePhysicalStress() {
-            const stressBoxes = Array.from(document.querySelectorAll('#physical-stress .stress-box'));
-            const lastStressBox = stressBoxes.at(-1);
-
-            if (stressBoxes.length > 1) {
-                lastStressBox.remove();
-            }
-        }
-
-        function addMentalStress() {
-            const stressBoxes = Array.from(document.querySelectorAll('#mental-stress .stress-box'));
-            const lastStressBox = stressBoxes.at(-1);
-
-            lastStressBox.after(lastStressBox.cloneNode(true));
-        };
-
-        function removeMentalStress() {
-            const stressBoxes = Array.from(document.querySelectorAll('#mental-stress .stress-box'));
-            const lastStressBox = stressBoxes.at(-1);
-
-            if (stressBoxes.length > 1) {
-                lastStressBox.remove();
-            }
-        }
-    
-        function addConsequence(consequence) {
-            const newConsequence = consequence.cloneNode(true);
-
-            const button = newConsequence.querySelector('button');
-
-            button.textContent = '−';
-            button.onclick = () => newConsequence.remove()
-
-            document.getElementById('consequences').append(newConsequence);
-        }
-    
         function saveCharacter() {
-            const form = document.getElementById('character');
-            const formData = new FormData(form);
-            const jsonData = Object.fromEntries(formData.entries());
+            const form = document.getElementById('character-form');
+            const data = Object.fromEntries(new FormData(form).entries());
 
-            localStorage.setItem('data', jsonData);
+            localStorage.setItem('data', JSON.stringify(data));
         }
     
         function loadCharacter() {
-            const form = document.getElementById('character');
-            const jsonData = localStorage.getItem('data');
-            const formData = new FormData();
+            const form = document.getElementById('character-form');
+            const data = Object.fromEntries(new FormData(form).entries());
 
-            for (const [key, value] of Object.entries(jsonData)) {
-                formData.set(key, value);
+            try {
+                Object.assign(data, JSON.parse(localStorage.getItem('character-data')));
+            } catch {
+                alert('Failed to load character data.');
+            }
+
+            repeat(() => addStressBox(Stress.PHYSICAL), data['stress-boxes-physical']);
+            repeat(() => addStressBox(Stress.MENTAL), data['stress-boxes-mental']);
+            repeat(() => addStressBox(Stress.PARADOX), data['stress-boxes-paradox']);
+
+            repeat(() => addConsequence(Consequence.MILD), data['consequences-mild']);
+            repeat(() => addConsequence(Consequence.MODERATE), data['consequences-moderate']);
+            repeat(() => addConsequence(Consequence.SEVERE), data['consequences-severe']);
+
+            for (const [key, value] of Object.entries(data)) {
+                const element = form.elements[key];
+
+                if (element) {
+                    if (element.type === 'checkbox') {
+                        element.checked = value === 'on';
+                    } else {
+                        element.value = value;
+                    }
+                }
             }
         }
+    </script>
+
+    <script type="module">
+        import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js';
+        
+        const CONSEQUENCE_STRESS_VALUE = {
+            mild: 2,
+            moderate: 4,
+            severe: 6,
+        };
+
+        const STORAGE_KEY = 'character';
+
+        const Aspect = {
+            ARCHMAGE_PERSONA: 'archmage persona',
+            FREE: 'aspect',
+            HIGH_CONCEPT: 'high concept',
+            RELATIONSHIP: 'relationship',
+            TROUBLE: 'trouble',
+        };
+
+        const Consequence = {
+            MILD: 'mild',
+            MODERATE: 'moderate',
+            SEVERE: 'severe',
+        };
+
+        const Skill = {
+            ARTIFICERY: 'artificery',
+            ATHLETICS: 'athletics',
+            COMBAT: 'combat',
+            CONTACTS: 'contacts',
+            DECEIVE: 'deceive',
+            EMPATHY: 'empathy',
+            LORE: 'lore',
+            PERCEPTION: 'perception',
+            PROVOKE: 'provoke',
+            RAPPORT: 'rapport',
+            SUBTERFUGE: 'subterfuge',
+            WILL: 'will',
+        };
+
+        const Sphere = {
+            PRIME: 'prime',
+            MIND: 'mind',
+            SPIRIT: 'spirit',
+            MATTER: 'matter',
+            FORCE: 'force',
+            LIFE: 'life',
+            CORRESPONDENCE: 'correspondence',
+            TIME: 'time',
+            ENTROPY: 'entropy',
+        };
+
+        const Stress = {
+            PHYSICAL: 'physical',
+            MENTAL: 'mental',
+            PARADOX: 'paradox',
+        };
+
+        function createCharacter() {
+            return {
+                aspects: [
+                    createAspect(Aspect.HIGH_CONCEPT),
+                    createAspect(Aspect.TROUBLE),
+                    createAspect(Aspect.ARCHMAGE_PERSONA),
+                    createAspect(Aspect.RELATIONSHIP),
+                    createAspect(Aspect.FREE),
+                    createAspect(Aspect.FREE),
+                ],
+                consequences: [
+                    createConsequence(Consequence.MILD, true),
+                    createConsequence(Consequence.MODERATE, true),
+                    createConsequence(Consequence.SEVERE, true),
+                ],
+                skills: Object.fromEntries(Object.values(Skill).map((name) => [name, createSkill(name)])),
+                spheres: Object.fromEntries(Object.values(Sphere).map((name) => [name, createSkill(name)])),
+                stress: {
+                    [Stress.PHYSICAL]: createStressTrack(3),
+                    [Stress.MENTAL]: createStressTrack(3),
+                    [Stress.PARADOX]: createStressTrack(3),
+                },
+                stunts: '',
+            };
+        }
+
+        function createAspect(label) {
+            return {
+                label: label,
+                description: '',
+            };
+        }
+
+        function createConsequence(type, isFixed = false) {
+            return {
+                description: '',
+                isFixed: isFixed,
+                stressValue: CONSEQUENCE_STRESS_VALUE[type],
+                type: type,
+            };
+        }
+
+        function createSkill(label) {
+            return {
+                label: label,
+                value: '',
+            };
+        }
+
+        function createStressBox() {
+            return {
+                checked: false,
+            };
+        }
+
+        function createStressTrack(length) {
+            return Array.from({ length }).map(() => createStressBox());
+        }
+
+        function loadCharacter() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY);
+
+                if (data) {
+                    return JSON.parse(data);
+                }
+            } catch {
+                localStorage.removeItem(STORAGE_KEY);
+
+                alert('Failed to load character data.');
+            }
+        }
+
+        function saveCharacter(data) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        createApp({
+            data() {
+                const character = loadCharacter() ?? createCharacter();
+
+                return {
+                    character,
+                };
+            },
+            methods: {
+                addStressBox(type) {
+                    this.character.stress[type].push(createStressBox(1));
+                },
+                removeStressBox(type) {
+                    this.character.stress[type].pop();
+                },
+                addConsequence(type) {
+                    this.character.consequences.push(createConsequence(type))
+                },
+                removeConsequence(consequence) {
+                    this.character.consequences.splice(this.character.consequences.indexOf(consequence), 1);
+                },
+            },
+            watch: {
+                character: {
+                    deep: true,
+                    handler(data) {
+                        saveCharacter(data);
+                    },
+                },
+            },
+        }).mount('#app');
     </script>
 
 </body>
